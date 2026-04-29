@@ -3,17 +3,15 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        len_num = len(nums)
-
-        if k <= len(nums):
-            rotate_val = nums[-k:]
         
-            nums[k:] = nums[:len_num-k]
-            nums[:len(rotate_val)] = rotate_val
-        else:
-            for i in range(k):
-                cur_val = nums[-1]
-                
-                for j in range(len_num-1):
-                    nums[len_num-j-1] = nums[len_num-j-2]
-                nums[0] = cur_val
+        k %= len(nums)
+        right_num = nums[-k:]
+
+        pos = len(nums)-1
+
+        for i in range(len(nums)-k-1, -1, -1):
+            nums[pos] = nums[i]
+            pos -= 1
+
+        for idx, r in enumerate(right_num):
+            nums[idx] = r
